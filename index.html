@@ -1987,9 +1987,6 @@
                     </div>
 
                     <div class="calc-actions">
-    <button type="button" class="btn-pdf" onclick="syncToFullCalculator()" style="flex: 1;">
-        <span>🔄</span> Перенести в детальный расчёт
-    </button>
     <a href="#calculator" class="btn-order" onclick="syncToFullCalculator()">Детальный расчёт</a>
 </div>
                 </div>
@@ -2934,136 +2931,42 @@
         let cuttingTotal = 0;
 
         // Initialize
-        // Initialize
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
-    addQuickPosition();
-    addFullPosition();
-    updateOrderForm();
-    
-    // Восстановление состояния секции услуг
-    const servicesSection = document.getElementById('services');
-    const isCollapsed = localStorage.getItem('servicesCollapsed') === 'true';
-    
-    if (isCollapsed) {
-        servicesSection.classList.add('collapsed');
-        document.querySelector('.toggle-text').textContent = 'Развернуть';
-        document.querySelector('.toggle-icon').textContent = '▶';
-    }
-    
-    // Синхронизация быстрого расчёта с детальным
-    setupQuickToFullSync();
-});
-
-// Синхронизация "Быстрого расчёта" → "Детальный расчёт"
-function setupQuickToFullSync() {
-    // Слушаем изменения в быстром калькуляторе
-    const quickMaterial = document.getElementById('quick-material');
-    const quickThickness = document.getElementById('quick-thickness');
-    
-    if (quickMaterial) {
-        quickMaterial.addEventListener('change', syncMaterialToFull);
-    }
-    if (quickThickness) {
-        quickThickness.addEventListener('input', syncThicknessToFull);
-    }
-    
-    // Синхронизация при добавлении/удалении позиций в быстром расчёте
-    const observer = new MutationObserver(function(mutations) {
-        syncPositionsToFull();
-    });
-    
-    const quickPositionsContainer = document.getElementById('quick-positions');
-    if (quickPositionsContainer) {
-        observer.observe(quickPositionsContainer, { childList: true, subtree: true });
-    }
-}
-
-function syncMaterialToFull() {
-    const quickMaterial = document.getElementById('quick-material').value;
-    const fullMaterialInput = document.getElementById('full-material');
-    
-    if (fullMaterialInput && fullMaterialInput.value !== quickMaterial) {
-        // Обновляем скрытое поле
-        fullMaterialInput.value = quickMaterial;
-        currentMaterial = quickMaterial;
-        
-        // Обновляем UI детального калькулятора
-        document.querySelectorAll('.material-card').forEach(card => {
-            card.classList.remove('active');
-            if (card.onclick && card.onclick.toString().includes(quickMaterial)) {
-                card.classList.add('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            addQuickPosition();
+            addFullPosition();
+            updateOrderForm();
+            
+            // Восстановление состояния секции услуг
+            const servicesSection = document.getElementById('services');
+            const isCollapsed = localStorage.getItem('servicesCollapsed') === 'true';
+            
+            if (isCollapsed) {
+                servicesSection.classList.add('collapsed');
+                document.querySelector('.toggle-text').textContent = 'Развернуть';
+                document.querySelector('.toggle-icon').textContent = '▶';
             }
         });
-        
-        // Обновляем текст
-        document.getElementById('summary-material').textContent = materials[quickMaterial];
-        
-        calculateFull();
-        updateOrderForm();
-    }
-}
 
-function syncThicknessToFull() {
-    const quickThickness = parseInt(document.getElementById('quick-thickness').value) || 6;
-    const fullThicknessInput = document.getElementById('full-thickness');
-    
-    if (fullThicknessInput && fullThicknessInput.value != quickThickness) {
-        fullThicknessInput.value = quickThickness;
-        currentThickness = quickThickness;
-        document.getElementById('summary-thickness').textContent = quickThickness + ' мм';
-        
-        calculateFull();
-        updateOrderForm();
-    }
-}
-
-function syncPositionsToFull() {
-    // Очищаем детальный калькулятор
-    fullPositions = [];
-    document.getElementById('full-positions').innerHTML = '';
-    
-    // Копируем позиции из быстрого расчёта
-    quickPositions.forEach(quickId => {
-        const quickType = document.getElementById(`quick-type-${quickId}`);
-        const quickFormat = document.getElementById(`quick-format-${quickId}`);
-        const quickQty = document.getElementById(`quick-qty-${quickId}`);
-        
-        if (quickType && quickFormat && quickQty) {
-            // Создаём позицию в детальном калькуляторе
-            const fullId = addFullPosition();
+        // Сворачивание/разворачивание секции "Наши услуги"
+        function toggleServices() {
+            const servicesSection = document.getElementById('services');
+            const btnIcon = document.querySelector('.toggle-icon');
+            const btnText = document.querySelector('.toggle-text');
             
-            // Копируем значения
-            document.getElementById(`full-type-${fullId}`).value = quickType.value;
-            document.getElementById(`full-format-${fullId}`).value = quickFormat.value;
-            document.getElementById(`full-qty-${fullId}`).value = quickQty.value;
+            servicesSection.classList.toggle('collapsed');
+            const isCollapsed = servicesSection.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                btnText.textContent = 'Развернуть';
+                btnIcon.textContent = '▶';
+            } else {
+                btnText.textContent = 'Свернуть';
+                btnIcon.textContent = '▼';
+                servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            localStorage.setItem('servicesCollapsed', isCollapsed);
         }
-    });
-    
-    calculateFull();
-    updateOrderForm();
-}
-
-// Сворачивание/разворачивание секции "Наши услуги"
-function toggleServices() {
-    const servicesSection = document.getElementById('services');
-    const btnIcon = document.querySelector('.toggle-icon');
-    const btnText = document.querySelector('.toggle-text');
-    
-    servicesSection.classList.toggle('collapsed');
-    const isCollapsed = servicesSection.classList.contains('collapsed');
-    
-    if (isCollapsed) {
-        btnText.textContent = 'Развернуть';
-        btnIcon.textContent = '▶';
-    } else {
-        btnText.textContent = 'Свернуть';
-        btnIcon.textContent = '▼';
-        servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    
-    localStorage.setItem('servicesCollapsed', isCollapsed);
-}
 
         // Mobile menu toggle
         function toggleMobileMenu() {
@@ -3163,13 +3066,12 @@ function toggleServices() {
 
         // Quick Calculator Functions
         function addQuickPosition() {
-    const id = 'pos-' + Date.now();
+            const id = Date.now();
             const container = document.getElementById('quick-positions');
             
             const div = document.createElement('div');
             div.className = 'position-card';
-  div.id = `quick-pos-${id}`;
-    div.dataset.syncId = id; // Добавляем ID для синхронизации
+            div.id = `quick-pos-${id}`;
             div.innerHTML = `
                 <div class="position-header">
                     <span class="position-number">Позиция ${quickPositions.length + 1}</span>
@@ -3337,7 +3239,7 @@ function toggleServices() {
             fullPositions.push(id);
             calculateFull();
             updateOrderForm();
-return id
+            return id;
         }
 
         function removeFullPosition(id) {
@@ -3768,54 +3670,95 @@ return id
                 updateOrderForm();
             }
         });
-// Принудительная синхронизация при клике на кнопку
-function syncToFullCalculator() {
-    // Синхронизируем материал
-    syncMaterialToFull();
-    
-    // Синхронизируем толщину
-    syncThicknessToFull();
-    
-    // Синхронизируем позиции
-    syncPositionsToFull();
-    
-    // Показываем уведомление
-    const notification = document.getElementById('notification');
-    notification.textContent = 'Данные перенесены в детальный расчёт!';
-    notification.classList.add('show');
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 3000);
-}
-// Автоматическая синхронизация при любом изменении в быстром расчёте
-document.addEventListener('change', function(e) {
-    if (e.target.id && (
-        e.target.id.startsWith('quick-type-') || 
-        e.target.id.startsWith('quick-format-') ||
-        e.target.id === 'quick-material'
-    )) {
-        // Небольшая задержка чтобы избежать частых обновлений
-        clearTimeout(window.syncTimeout);
-        window.syncTimeout = setTimeout(() => {
-            syncMaterialToFull();
-            syncThicknessToFull();
-            syncPositionsToFull();
-        }, 500);
-    }
-});
 
-document.addEventListener('input', function(e) {
-    if (e.target.id && (
-        e.target.id.startsWith('quick-qty-') || 
-        e.target.id === 'quick-thickness'
-    )) {
-        clearTimeout(window.syncTimeout);
-        window.syncTimeout = setTimeout(() => {
-            syncThicknessToFull();
-            syncPositionsToFull();
-        }, 500);
-    }
-});
+        // СИНХРОНИЗАЦИЯ БЫСТРОГО РАСЧЁТА В ДЕТАЛЬНЫЙ (ИСПРАВЛЕННАЯ)
+        function syncToFullCalculator() {
+            // 1. Синхронизируем материал
+            const quickMaterial = document.getElementById('quick-material').value;
+            currentMaterial = quickMaterial;
+            document.getElementById('full-material').value = quickMaterial;
+            document.getElementById('summary-material').textContent = materials[quickMaterial];
+            
+            // Обновляем UI карточек материалов
+            document.querySelectorAll('.material-card').forEach(card => {
+                card.classList.remove('active');
+                const onclickAttr = card.getAttribute('onclick');
+                if (onclickAttr && onclickAttr.includes(`'${quickMaterial}'`)) {
+                    card.classList.add('active');
+                }
+            });
+            
+            // 2. Синхронизируем толщину
+            const quickThickness = parseInt(document.getElementById('quick-thickness').value) || 6;
+            currentThickness = quickThickness;
+            document.getElementById('full-thickness').value = quickThickness;
+            document.getElementById('summary-thickness').textContent = quickThickness + ' мм';
+            
+            // 3. Очищаем детальный калькулятор ПОЛНОСТЬЮ
+            fullPositions = [];
+            document.getElementById('full-positions').innerHTML = '';
+            
+            // 4. Копируем позиции из быстрого расчёта
+            quickPositions.forEach((quickId, index) => {
+                const quickType = document.getElementById(`quick-type-${quickId}`).value;
+                const quickFormat = document.getElementById(`quick-format-${quickId}`).value;
+                const quickQty = document.getElementById(`quick-qty-${quickId}`).value;
+                
+                // Создаём новую позицию в детальном калькуляторе
+                const fullId = Date.now() + index; // Уникальный ID
+                const container = document.getElementById('full-positions');
+                
+                const div = document.createElement('div');
+                div.className = 'full-position-card';
+                div.id = `full-pos-${fullId}`;
+                div.innerHTML = `
+                    <div class="full-position-header">
+                        <span style="color: var(--white); font-weight: 600;">Позиция ${index + 1}</span>
+                        <button type="button" class="remove-btn" onclick="removeFullPosition(${fullId})">Удалить</button>
+                    </div>
+                    <div class="full-position-grid">
+                        <div class="form-group">
+                            <label>Вид резки</label>
+                            <select id="full-type-${fullId}" onchange="calculateFull(); updateOrderForm();">
+                                <option value="pryamoy" ${quickType === 'pryamoy' ? 'selected' : ''}>Прямолинейный рез</option>
+                                <option value="fas_zav" ${quickType === 'fas_zav' ? 'selected' : ''}>Фаска заводская</option>
+                                <option value="radial" ${quickType === 'radial' ? 'selected' : ''}>Радиальный рез</option>
+                                <option value="g_obr" ${quickType === 'g_obr' ? 'selected' : ''}>Г-образный распил</option>
+                                <option value="p_obr" ${quickType === 'p_obr' ? 'selected' : ''}>П-образный распил</option>
+                                <option value="zaus_45_pryam" ${quickType === 'zaus_45_pryam' ? 'selected' : ''}>Заусовка 45° (прямая)</option>
+                                <option value="zaus_45_g" ${quickType === 'zaus_45_g' ? 'selected' : ''}>Заусовка 45° (Г-образная)</option>
+                                <option value="zaus_45_p" ${quickType === 'zaus_45_p' ? 'selected' : ''}>Заусовка 45° (П-образная)</option>
+                                <option value="vyrez_luk" ${quickType === 'vyrez_luk' ? 'selected' : ''}>Вырез под люк</option>
+                                <option value="otverstie_70" ${quickType === 'otverstie_70' ? 'selected' : ''}>Отверстие до 70 мм</option>
+                                <option value="otverstie_110" ${quickType === 'otverstie_110' ? 'selected' : ''}>Отверстие 70-110 мм</option>
+                                <option value="skruglenie" ${quickType === 'skruglenie' ? 'selected' : ''}>Скругление углов</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Формат плиты</label>
+                            <select id="full-format-${fullId}" onchange="calculateFull(); updateOrderForm();">
+                                <option value="1200" ${quickFormat === '1200' ? 'selected' : ''}>до 1200 мм</option>
+                                <option value="1600" ${quickFormat === '1600' ? 'selected' : ''}>до 1600 мм</option>
+                                <option value="3000" ${quickFormat === '3000' ? 'selected' : ''}>до 3000 мм</option>
+                                <option value="3200" ${quickFormat === '3200' ? 'selected' : ''}>до 3200 мм</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Количество</label>
+                            <input type="number" id="full-qty-${fullId}" value="${quickQty}" min="0.1" step="0.1" oninput="calculateFull(); updateOrderForm();">
+                        </div>
+                        <div class="position-total" id="full-price-${fullId}">0 ₽</div>
+                    </div>
+                `;
+                
+                container.appendChild(div);
+                fullPositions.push(fullId);
+            });
+            
+            // 5. Пересчитываем детальный калькулятор
+            calculateFull();
+            updateOrderForm();
+        }
     </script>
 </body>
 </html>
