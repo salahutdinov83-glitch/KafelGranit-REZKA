@@ -556,9 +556,71 @@
 
         /* Services Section */
         .services {
-            padding: 5rem 2rem;
-            background: var(--gray-light);
-        }
+    padding: 5rem 2rem;
+    background: var(--gray-light);
+    transition: all 0.4s ease;
+}
+
+.services.collapsed {
+    padding: 3rem 2rem;
+}
+
+.services.collapsed .services-grid {
+    display: none;
+}
+
+.services-grid {
+    animation: fadeInDown 0.4s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.toggle-btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.toggle-btn:hover {
+    background: var(--orange-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.toggle-icon {
+    transition: transform 0.3s;
+    font-size: 0.8rem;
+}
+
+.services.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+@media (max-width: 480px) {
+    .toggle-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+}
 
         .container {
             max-width: 1200px;
@@ -1860,8 +1922,11 @@
                     </div>
 
                     <div class="calc-actions">
-                        <a href="#calculator" class="btn-order">Детальный расчёт</a>
-                    </div>
+    <button type="button" class="btn-pdf" onclick="syncToFullCalculator()" style="flex: 1;">
+        <span>🔄</span> Перенести в детальный расчёт
+    </button>
+    <a href="#calculator" class="btn-order" onclick="syncToFullCalculator()">Детальный расчёт</a>
+</div>
                 </div>
             </div>
         </div>
@@ -1869,13 +1934,19 @@
 
     <!-- Services Section -->
     <section class="services" id="services">
-        <div class="container">
-            <div class="section-header">
+    <div class="container">
+        <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
                 <h2>Наши услуги</h2>
                 <div class="accent-line"></div>
-                <p>Актуальные цены на гидроабразивную резку</p>
+                <p>Актуальные цены на резку</p>
             </div>
-            <div class="services-grid">
+            <button type="button" class="toggle-btn" onclick="toggleServices()" id="services-toggle-btn">
+                <span class="toggle-icon">▼</span>
+                <span class="toggle-text">Свернуть</span>
+            </button>
+        </div>
+        <div class="services-grid">
 
                 <!-- Прямолинейная резка -->
                 <div class="service-card">
@@ -2476,7 +2547,7 @@
                 </div>
 
                 <!-- Submit -->
-                <p>Нажимая, высоглашаетесь с договором-офертой*</p>
+                <p>Нажимая, вы соглашаетесь с договором-офертой*</p>
                 <button type="submit" class="submit-btn" id="submit-btn">Отправить заявку</button>
                 
                 <div style="text-align: center; margin-top: 1.5rem; color: var(--gray);">
@@ -2798,11 +2869,136 @@
         let cuttingTotal = 0;
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            addQuickPosition();
-            addFullPosition();
-            updateOrderForm();
+        // Initialize
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    addQuickPosition();
+    addFullPosition();
+    updateOrderForm();
+    
+    // Восстановление состояния секции услуг
+    const servicesSection = document.getElementById('services');
+    const isCollapsed = localStorage.getItem('servicesCollapsed') === 'true';
+    
+    if (isCollapsed) {
+        servicesSection.classList.add('collapsed');
+        document.querySelector('.toggle-text').textContent = 'Развернуть';
+        document.querySelector('.toggle-icon').textContent = '▶';
+    }
+    
+    // Синхронизация быстрого расчёта с детальным
+    setupQuickToFullSync();
+});
+
+// Синхронизация "Быстрого расчёта" → "Детальный расчёт"
+function setupQuickToFullSync() {
+    // Слушаем изменения в быстром калькуляторе
+    const quickMaterial = document.getElementById('quick-material');
+    const quickThickness = document.getElementById('quick-thickness');
+    
+    if (quickMaterial) {
+        quickMaterial.addEventListener('change', syncMaterialToFull);
+    }
+    if (quickThickness) {
+        quickThickness.addEventListener('input', syncThicknessToFull);
+    }
+    
+    // Синхронизация при добавлении/удалении позиций в быстром расчёте
+    const observer = new MutationObserver(function(mutations) {
+        syncPositionsToFull();
+    });
+    
+    const quickPositionsContainer = document.getElementById('quick-positions');
+    if (quickPositionsContainer) {
+        observer.observe(quickPositionsContainer, { childList: true, subtree: true });
+    }
+}
+
+function syncMaterialToFull() {
+    const quickMaterial = document.getElementById('quick-material').value;
+    const fullMaterialInput = document.getElementById('full-material');
+    
+    if (fullMaterialInput && fullMaterialInput.value !== quickMaterial) {
+        // Обновляем скрытое поле
+        fullMaterialInput.value = quickMaterial;
+        currentMaterial = quickMaterial;
+        
+        // Обновляем UI детального калькулятора
+        document.querySelectorAll('.material-card').forEach(card => {
+            card.classList.remove('active');
+            if (card.onclick && card.onclick.toString().includes(quickMaterial)) {
+                card.classList.add('active');
+            }
         });
+        
+        // Обновляем текст
+        document.getElementById('summary-material').textContent = materials[quickMaterial];
+        
+        calculateFull();
+        updateOrderForm();
+    }
+}
+
+function syncThicknessToFull() {
+    const quickThickness = parseInt(document.getElementById('quick-thickness').value) || 6;
+    const fullThicknessInput = document.getElementById('full-thickness');
+    
+    if (fullThicknessInput && fullThicknessInput.value != quickThickness) {
+        fullThicknessInput.value = quickThickness;
+        currentThickness = quickThickness;
+        document.getElementById('summary-thickness').textContent = quickThickness + ' мм';
+        
+        calculateFull();
+        updateOrderForm();
+    }
+}
+
+function syncPositionsToFull() {
+    // Очищаем детальный калькулятор
+    fullPositions = [];
+    document.getElementById('full-positions').innerHTML = '';
+    
+    // Копируем позиции из быстрого расчёта
+    quickPositions.forEach(quickId => {
+        const quickType = document.getElementById(`quick-type-${quickId}`);
+        const quickFormat = document.getElementById(`quick-format-${quickId}`);
+        const quickQty = document.getElementById(`quick-qty-${quickId}`);
+        
+        if (quickType && quickFormat && quickQty) {
+            // Создаём позицию в детальном калькуляторе
+            const fullId = addFullPosition();
+            
+            // Копируем значения
+            document.getElementById(`full-type-${fullId}`).value = quickType.value;
+            document.getElementById(`full-format-${fullId}`).value = quickFormat.value;
+            document.getElementById(`full-qty-${fullId}`).value = quickQty.value;
+        }
+    });
+    
+    calculateFull();
+    updateOrderForm();
+}
+
+// Сворачивание/разворачивание секции "Наши услуги"
+function toggleServices() {
+    const servicesSection = document.getElementById('services');
+    const btnIcon = document.querySelector('.toggle-icon');
+    const btnText = document.querySelector('.toggle-text');
+    
+    servicesSection.classList.toggle('collapsed');
+    const isCollapsed = servicesSection.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+        btnText.textContent = 'Развернуть';
+        btnIcon.textContent = '▶';
+    } else {
+        btnText.textContent = 'Свернуть';
+        btnIcon.textContent = '▼';
+        servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    localStorage.setItem('servicesCollapsed', isCollapsed);
+}
 
         // Mobile menu toggle
         function toggleMobileMenu() {
@@ -2902,12 +3098,13 @@
 
         // Quick Calculator Functions
         function addQuickPosition() {
-            const id = Date.now();
+    const id = 'pos-' + Date.now();
             const container = document.getElementById('quick-positions');
             
             const div = document.createElement('div');
             div.className = 'position-card';
-            div.id = `quick-pos-${id}`;
+  div.id = `quick-pos-${id}`;
+    div.dataset.syncId = id; // Добавляем ID для синхронизации
             div.innerHTML = `
                 <div class="position-header">
                     <span class="position-number">Позиция ${quickPositions.length + 1}</span>
@@ -3075,6 +3272,7 @@
             fullPositions.push(id);
             calculateFull();
             updateOrderForm();
+return id
         }
 
         function removeFullPosition(id) {
@@ -3505,6 +3703,54 @@
                 updateOrderForm();
             }
         });
+// Принудительная синхронизация при клике на кнопку
+function syncToFullCalculator() {
+    // Синхронизируем материал
+    syncMaterialToFull();
+    
+    // Синхронизируем толщину
+    syncThicknessToFull();
+    
+    // Синхронизируем позиции
+    syncPositionsToFull();
+    
+    // Показываем уведомление
+    const notification = document.getElementById('notification');
+    notification.textContent = 'Данные перенесены в детальный расчёт!';
+    notification.classList.add('show');
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+// Автоматическая синхронизация при любом изменении в быстром расчёте
+document.addEventListener('change', function(e) {
+    if (e.target.id && (
+        e.target.id.startsWith('quick-type-') || 
+        e.target.id.startsWith('quick-format-') ||
+        e.target.id === 'quick-material'
+    )) {
+        // Небольшая задержка чтобы избежать частых обновлений
+        clearTimeout(window.syncTimeout);
+        window.syncTimeout = setTimeout(() => {
+            syncMaterialToFull();
+            syncThicknessToFull();
+            syncPositionsToFull();
+        }, 500);
+    }
+});
+
+document.addEventListener('input', function(e) {
+    if (e.target.id && (
+        e.target.id.startsWith('quick-qty-') || 
+        e.target.id === 'quick-thickness'
+    )) {
+        clearTimeout(window.syncTimeout);
+        window.syncTimeout = setTimeout(() => {
+            syncThicknessToFull();
+            syncPositionsToFull();
+        }, 500);
+    }
+});
     </script>
 </body>
 </html>
