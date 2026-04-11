@@ -767,6 +767,19 @@ input[type="file"] {
     };
     const materials = {keramogranit:'Керамогранит', mramor:'Мрамор', kvarc:'Кварцевый агломерат'};
     const materialMultipliers = {keramogranit:1, mramor:2, kvarc:1.7};
+// Telegram Bot Configuration
+const BOT_TOKEN = '7523948551:AAFfc6JnO0CExyA0D-6PDxZU8Dej3lr1hqk';
+const CHAT_ID = '1243747235';
+const TELEGRAM_API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+// MAX Configuration
+const MAX_BOT_TOKEN = 'f9LHodD0cOIh6VcsPNaoXvi1Zvq38sfhvWu2bwmUrFKLKgf2owOlAnBYV4TD3NwKr6EynmHKpU4iDQr01xH6';
+const MAX_CHAT_ID = '213451794';
+const MAX_API_UPLOAD_URL = 'https://api.max.ru/v1/uploads';
+const MAX_API_SEND_URL = 'https://api.max.ru/v1/messages';
+
+// Email (FormSubmit)
+const FORM_SUBMIT_URL = 'https://formsubmit.co/ajax/info@кафельгранит124.рф';
 
     let quickPositions = [], fullPositions = [], currentMaterial = 'keramogranit', currentThickness = 6, selectedFiles = [], deliveryCost = 0, cuttingTotal = 0;
 
@@ -934,20 +947,36 @@ input[type="file"] {
         document.getElementById('form-file-input').files = dt.files;
         handleFileSelect(document.getElementById('form-file-input'));
     }
-    document.getElementById('main-form').addEventListener('submit', function(e) {
-    console.log('Форма отправляется, файлов:', selectedFiles.length);
+// НОВЫЙ ОБРАБОТЧИК: только проверки, без fetch
+document.getElementById('main-form').addEventListener('submit', function(e) {
+    // 1. Проверка: прикреплены ли файлы
     if (selectedFiles.length === 0) {
         e.preventDefault();
-        var uploadArea = document.getElementById('file-upload-area');
-        uploadArea.classList.add('error');
+        document.getElementById('file-upload-area').classList.add('error');
         document.getElementById('file-error').style.display = 'block';
-        console.log('Добавлен класс error, рамка должна покраснеть');
+        document.getElementById('file-upload-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
     }
-        if(fullPositions.length === 0) { alert('Добавьте хотя бы одну позицию для резки'); e.preventDefault(); return; }
-        document.getElementById('notification').style.display = 'block';
-        setTimeout(() => document.getElementById('notification').style.display = 'none', 5000);
-    });
+    
+    // 2. Проверка: есть ли хотя бы одна позиция в детальном калькуляторе
+    if (fullPositions.length === 0) {
+        e.preventDefault();
+        alert('Добавьте хотя бы одну позицию для резки');
+        return;
+    }
+    
+    // Если все проверки пройдены – форма отправится стандартным POST-запросом
+    // на action="https://кафельгранит124.рф/send.php"
+    // Показываем уведомление (но не отменяем отправку)
+    const notification = document.getElementById('notification');
+    notification.textContent = 'Отправка заявки...';
+    notification.style.display = 'block';
+    
+    // Уведомление исчезнет через 3 секунды (отправка уже ушла)
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 3000);
+});
     function toggleMobileMenu() { document.getElementById('nav-links').classList.toggle('show'); }
     function printOrderDetails() {
     // Собираем данные для печати
@@ -1074,6 +1103,32 @@ function togglePickupAddress() {
         pickupRow.classList.add('hidden');
         pickupInput.required = false;
         pickupInput.value = '';
+    }
+}
+
+
+// Отправка файла в MAX
+async function sendFileToMax(file, caption) {
+    try {
+        const uploadRes = await fetch(MAX_API_UPLOAD_URL, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${MAX_BOT_TOKEN}` }
+        });
+        const { upload_url, token } = await uploadRes.json();
+        await fetch(upload_url, { method: 'PUT', body: file });
+        const msgRes = await fetch(MAX_API_SEND_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${MAX_BOT_TOKEN}` },
+            body: JSON.stringify({
+                chat_id: MAX_CHAT_ID,
+                text: caption,
+                attachments: [{ type: 'document', payload: { token } }]
+            })
+        });
+        return msgRes.ok;
+    } catch (e) {
+        console.error('MAX error:', e);
+        return false;
     }
 }
 </script>
