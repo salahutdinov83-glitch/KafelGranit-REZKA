@@ -572,7 +572,7 @@
                 <div id="quick-positions"></div>
                 <button class="add-position-btn" onclick="addQuickPosition()">+ Добавить вид резки</button>
                 <div class="calc-summary">Итого: <span id="quick-total">0 ₽</span></div>
-                <button class="cta-button" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})" style="margin-top: 1rem;">ЗАПОЛНИТЬ ЗАЯВКУ НА РЕЗКУ</button>
+                <button class="cta-button" onclick="transferQuickToFull(); document.getElementById('calculator').scrollIntoView({behavior:'smooth'});" style="margin-top: 1rem;">ЗАПОЛНИТЬ ЗАЯВКУ НА РЕЗКУ</button>
             </div>
         </div>
     </div>
@@ -788,7 +788,7 @@
     let quickPositions = [], fullPositions = [], currentMaterial = 'keramogranit', currentThickness = 6, selectedFiles = [], deliveryCost = 0, cuttingTotal = 0;
 
     function addQuickPosition() {
-        let id = Date.now();
+        let id = Date.now() + Math.floor(Math.random() * 1000000);
         let div = document.createElement('div'); div.className = 'position-card'; div.id = `quick-pos-${id}`;
         div.innerHTML = `
             <div class="position-header"><span>Позиция ${quickPositions.length+1}</span><button class="remove-btn" onclick="removeQuickPosition(${id})">Удалить</button></div>
@@ -821,7 +821,7 @@
     }
 
     function addFullPosition() {
-        let id = Date.now();
+        let id = Date.now() + Math.floor(Math.random() * 1000000);
         let div = document.createElement('div'); div.className = 'full-position-card'; div.id = `full-pos-${id}`;
         div.innerHTML = `
             <div class="full-position-header" style="display:flex; justify-content:space-between; margin-bottom:0.8rem;">
@@ -858,6 +858,78 @@
         updateOrderForm();
     }
     function removeFullPosition(id) { if(fullPositions.length<=1) return; document.getElementById(`full-pos-${id}`).remove(); fullPositions = fullPositions.filter(p=>p!==id); calculateFull(); updateOrderForm(); }
+    
+    // Добавление позиции с заданными значениями для переноса
+    function addFullPositionWithValues(type, format, qty) {
+        addFullPosition(); // создаст новую позицию и добавит id в fullPositions
+        let lastId = fullPositions[fullPositions.length - 1];
+        if (lastId) {
+            document.getElementById(`full-type-${lastId}`).value = type;
+            document.getElementById(`full-format-${lastId}`).value = format;
+            document.getElementById(`full-qty-${lastId}`).value = qty;
+        }
+        // пересчет будет сделан в addFullPosition -> calculateFull, но после установки значений нужно пересчитать еще раз
+        calculateFull();
+        updateOrderForm();
+    }
+    
+    function transferQuickToFull() {
+        // 1. Материал
+        let quickMaterialVal = document.getElementById('quick-material').value;
+        let materialCards = document.querySelectorAll('.material-card');
+        let targetCard = null;
+        for (let card of materialCards) {
+            let cardText = card.innerText.trim();
+            if ((quickMaterialVal === 'keramogranit' && cardText === 'Керамогранит') ||
+                (quickMaterialVal === 'mramor' && cardText === 'Мрамор') ||
+                (quickMaterialVal === 'kvarc' && cardText === 'Кварцевый агломерат')) {
+                targetCard = card;
+                break;
+            }
+        }
+        if (targetCard) {
+            selectMaterial(quickMaterialVal, targetCard);
+        }
+        
+        // 2. Толщина
+        let quickThick = document.getElementById('quick-thickness').value;
+        document.getElementById('full-thickness').value = quickThick;
+        currentThickness = parseInt(quickThick);
+        document.getElementById('summary-thickness').innerText = currentThickness + ' мм';
+        
+        // 3. Очистить текущие позиции в детальном
+        document.querySelectorAll('#full-positions .full-position-card').forEach(el => el.remove());
+        fullPositions = [];
+        
+        // 4. Получить все позиции из быстрого калькулятора и добавить их
+        let quickPositionCards = document.querySelectorAll('#quick-positions .position-card');
+        if (quickPositionCards.length === 0) {
+            // если нет ни одной (по умолчанию есть), добавим хотя бы одну пустую
+            addFullPosition();
+        } else {
+            quickPositionCards.forEach(quickCard => {
+                let typeSelect = quickCard.querySelector('select[id^="quick-type-"]');
+                let formatSelect = quickCard.querySelector('select[id^="quick-format-"]');
+                let qtyInput = quickCard.querySelector('input[id^="quick-qty-"]');
+                if (typeSelect && formatSelect && qtyInput) {
+                    let typeVal = typeSelect.value;
+                    let formatVal = parseInt(formatSelect.value);
+                    let qtyVal = parseFloat(qtyInput.value);
+                    if (typeVal && formatVal && !isNaN(qtyVal) && qtyVal > 0) {
+                        addFullPositionWithValues(typeVal, formatVal, qtyVal);
+                    } else {
+                        addFullPosition(); // добавить пустую если данные некорректны
+                    }
+                } else {
+                    addFullPosition();
+                }
+            });
+        }
+        // 5. Пересчет итогов (уже сделан внутри addFullPosition и addFullPositionWithValues, но на всякий случай)
+        calculateFull();
+        updateOrderForm();
+    }
+    
     function calculateFull() {
         let total=0, multiplier=materialMultipliers[currentMaterial];
         fullPositions.forEach(id=>{
