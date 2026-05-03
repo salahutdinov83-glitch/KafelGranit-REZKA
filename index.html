@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://i.ibb.co/nqYTL9gL/111.png">
-<link rel="apple-touch-icon" href="https://i.ibb.co/nqYTL9gL/111.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>КафельГранит124 | Гидроабразивная резка в Красноярске</title>
+    <title>КафельГранит124 | Гидроабразивная и алмазная резка</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="https://i.ibb.co/nqYTL9gL/111.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/nqYTL9gL/111.png">
     <style>
         * {
             margin: 0;
@@ -88,7 +88,7 @@
         .hero {
             margin-top: 85px;
             background: #ffffff;
-            padding: 3rem 2rem;
+            padding: 2rem 2rem 3rem 2rem;
         }
         .hero-container {
             max-width: 1200px;
@@ -98,10 +98,23 @@
             gap: 2.5rem;
             align-items: start;
         }
-        .hero-content h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #343B29; }
-        .hero-content h1 span { color: #5A6268; }
-        .hero-feature { margin: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; }
-        .hero-feature::before { content: "✓"; color: #5A6268; font-weight: bold; }
+        .hero-content h1 { display: none; }
+        .hero-content p {
+            font-size: 1rem;
+            color: #343B29;
+            margin-bottom: 1rem;
+        }
+        .hero-feature { 
+            margin: 0.5rem 0; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        .hero-feature::before { 
+            content: "✓"; 
+            color: #5A6268; 
+            font-weight: bold; 
+        }
         .cta-button {
             background: #5A6268;
             color: white;
@@ -129,59 +142,6 @@
             display: inline-block;
             margin-bottom: 1.2rem;
             padding-bottom: 0.2rem;
-        }
-        select, input {
-            width: 100%;
-            padding: 0.6rem;
-            margin: 0.3rem 0 0.8rem;
-            border: 1px solid #DEE2E6;
-            border-radius: 12px;
-            background: white;
-        }
-        .position-card {
-            background: white;
-            border: 1px solid #E9ECEF;
-            border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-        .position-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-        .remove-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .position-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 0.7rem;
-            align-items: end;
-        }
-        .field-label {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #6C757D;
-            margin-bottom: 0.2rem;
-        }
-        .add-position-btn {
-            background: #28a745;
-            color: white;
-            width: 100%;
-            padding: 0.6rem;
-            border: none;
-            border-radius: 40px;
-            margin: 1rem 0;
-            cursor: pointer;
-            font-weight: 500;
         }
         .calc-summary {
             background: #5A6268;
@@ -272,24 +232,6 @@
             padding: 2rem;
             border-radius: 28px;
         }
-        .material-selector {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-        }
-        .material-card {
-            background: white;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            cursor: pointer;
-            border: 1px solid #DEE2E6;
-            transition: all 0.2s;
-        }
-        .material-card.active {
-            border-color: #5A6268;
-            background: #E9ECEF;
-        }
         .full-position-card {
             background: white;
             padding: 1rem;
@@ -298,9 +240,43 @@
         }
         .full-position-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr auto;
+            grid-template-columns: 1.2fr 0.9fr 0.8fr 0.9fr 0.8fr auto;
             gap: 0.8rem;
             align-items: end;
+        }
+        .field-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #6C757D;
+            margin-bottom: 0.2rem;
+        }
+        select, input {
+            width: 100%;
+            padding: 0.6rem;
+            margin: 0.3rem 0 0;
+            border: 1px solid #DEE2E6;
+            border-radius: 12px;
+            background: white;
+        }
+        .add-position-btn {
+            background: #28a745;
+            color: white;
+            width: 100%;
+            padding: 0.6rem;
+            border: none;
+            border-radius: 40px;
+            margin: 1rem 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
         .full-summary {
             background: #5A6268;
@@ -486,6 +462,20 @@
         .toggle-services-btn:hover {
             background: #495057;
         }
+        /* Широкий заголовок */
+        .wide-title {
+            max-width: 1200px;
+            margin: 0 auto 1.5rem auto;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #343B29;
+            line-height: 1.3;
+        }
+        .wide-title span {
+            color: #5A6268;
+        }
+        /* Мобильная адаптация */
         @media (max-width: 768px) {
             .hero-container { grid-template-columns: 1fr; }
             .nav-links {
@@ -503,7 +493,23 @@
             .nav-links.show { display: flex; }
             .mobile-menu-btn { display: block; }
             .form-row { grid-template-columns: 1fr; }
-            .position-grid, .full-position-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+            .full-position-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+            .wide-title {
+                font-size: 1.8rem;
+                padding: 0 1rem;
+            }
+            .hero {
+                padding: 1rem 1rem 2rem 1rem;
+            }
+            .calculator-box {
+                padding: 1.2rem;
+            }
+            .full-calc-container {
+                padding: 1rem;
+            }
+            .contact-form {
+                padding: 1.5rem;
+            }
         }
         input[type="file"] {
             display: none;
@@ -515,6 +521,19 @@
         .file-upload.error {
             border-color: #dc3545 !important;
             background: rgba(220,53,69,0.05);
+        }
+        .position-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        .position-total {
+            background: #E9ECEF;
+            padding: 0.6rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -545,9 +564,12 @@
 </nav>
 
 <section class="hero">
+    <div class="wide-title">
+        ГИДРОАБРАЗИВНАЯ И АЛМАЗНАЯ РЕЗКА.<br>
+        <span>керамогранита, кварцевого агломерата, натурального камня в Красноярске.</span>
+    </div>
     <div class="hero-container">
         <div class="hero-content">
-            <h1>Гидроабразивная резка <span>в Красноярске</span></h1>
             <p>Профессиональная резка керамогранита, мрамора и кварца. Расчёт в погонных метрах по фиксированным ценам.</p>
             <div class="hero-features">
                 <div class="hero-feature">Точность реза до 0.1 мм, без сколов и трещин</div>
@@ -561,25 +583,21 @@
             <a href="#calculator" class="cta-button">Рассчитать стоимость</a>
         </div>
         <div class="hero-visual">
-            <div class="calculator-box">
-                <div class="calc-header">Быстрый расчёт</div>
-                <label>Материал</label>
-                <select id="quick-material">
-                    <option value="keramogranit">Керамогранит</option>
-                    <option value="mramor">Мрамор</option>
-                    <option value="kvarc">Кварцевый агломерат</option>
-                </select>
-                <label>Толщина (мм)</label>
-                <input type="number" id="quick-thickness" value="6" min="6" step="1">
-                <div id="quick-positions"></div>
-                <button class="add-position-btn" onclick="addQuickPosition()">+ Добавить вид резки</button>
-                <div class="calc-summary">Итого: <span id="quick-total">0 ₽</span></div>
-                <button class="cta-button" onclick="transferQuickToFull(); document.getElementById('calculator').scrollIntoView({behavior:'smooth'});" style="margin-top: 1rem;">ЗАПОЛНИТЬ ЗАЯВКУ НА РЕЗКУ</button>
+            <div class="calculator-box" style="text-align: center;">
+                <div class="calc-header">О нас в цифрах</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+                    <div><div style="font-size: 2rem; font-weight: 700; color: #5A6268;">600 м²</div><div style="font-size: 0.9rem; color: #6C757D;">производственная площадь</div></div>
+                    <div><div style="font-size: 2rem; font-weight: 700; color: #5A6268;">12</div><div style="font-size: 0.9rem; color: #6C757D;">специалистов в штате</div></div>
+                    <div><div style="font-size: 2rem; font-weight: 700; color: #5A6268;">2-3 дня</div><div style="font-size: 0.9rem; color: #6C757D;">срок изготовления</div></div>
+                    <div><div style="font-size: 2rem; font-weight: 700; color: #5A6268;">0,1 мм</div><div style="font-size: 0.9rem; color: #6C757D;">точность реза</div></div>
+                </div>
+                <div class="calc-summary" style="background: #E9ECEF; color: #343B29; margin-top: 0;">Гарантия качества на все работы</div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Услуги (сжат для краткости, полная версия как выше) -->
 <section class="services" id="services">
     <div class="container">
         <div class="section-header">
@@ -590,16 +608,16 @@
         </div>
         <div class="services-content" id="servicesContent">
             <div class="services-grid">
-                <div class="service-card"><div class="service-icon">▦</div><h3>Прямолинейный рез (распил)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">350 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">450 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">1200 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">1350 ₽/м.пог.</span></div></div><div class="service-note">* Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
+                <div class="service-card"><div class="service-icon">▦</div><h3>Прямолинейный рез (распил)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">350 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">450 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">1200 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">1350 ₽/м.пог.</span></div></div><div class="service-note">* Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
                 <div class="service-card"><div class="service-icon">◿</div><h3>Фаска заводская</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">80 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">80 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">270 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">270 ₽/м.пог.</span></div></div><div class="service-note">* Без доплаты за толщину</div></div>
-                <div class="service-card"><div class="service-icon">◫</div><h3>Радиальный рез (криволинейный)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">850 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">1000 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">1700 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">1850 ₽/м.пог.</span></div></div><div class="service-note">* Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
-                <div class="service-card"><div class="service-icon">Γ</div><h3>Г-образный распил</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">750 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">870 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">2500 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">2700 ₽/м.пог.</span></div></div><div class="service-note">* Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
-                <div class="service-card"><div class="service-icon">Π</div><h3>П-образный распил</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">900 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">1000 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">4500 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">4700 ₽/м.пог.</span></div></div><div class="service-note">* Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
-                <div class="service-card"><div class="service-icon">◢</div><h3>Заусовка под 45° (прямая)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">500 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">550 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">1550 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">1600 ₽/м.пог.</span></div></div><div class="service-note">* Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
-                <div class="service-card"><div class="service-icon">◣</div><h3>Заусовка под 45° (Г-образная)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">750 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">850 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">2000 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">2000 ₽/м.пог.</span></div></div><div class="service-note">* Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
-                <div class="service-card"><div class="service-icon">◥</div><h3>Заусовка под 45° (П-образная)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">850 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">950 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">2500 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">2900 ₽/м.пог.</span></div></div><div class="service-note">* Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
-                <div class="service-card"><div class="service-icon">□</div><h3>Сквозной вырез под люк</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">4500 ₽/шт</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">4800 ₽/шт</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">6200 ₽/шт</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">6500 ₽/шт</span></div></div><div class="service-note">* Цена за штуку. Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
-                <div class="service-card"><div class="service-icon">◎</div><h3>Вырез отверстий (сверление)</h3><div class="service-prices"><div class="price-row"><span>До 70 мм (до 1200)</span><span class="highlight">450 ₽/шт</span></div><div class="price-row"><span>До 70 мм (до 1600)</span><span class="highlight">450 ₽/шт</span></div><div class="price-row"><span>До 70 мм (до 3200)</span><span class="highlight">750 ₽/шт</span></div><div class="price-row"><span>70-110 мм (до 1200)</span><span class="highlight">800 ₽/шт</span></div><div class="price-row"><span>70-110 мм (до 1600)</span><span class="highlight">800 ₽/шт</span></div><div class="price-row"><span>70-110 мм (до 3200)</span><span class="highlight">1200 ₽/шт</span></div></div><div class="service-note">* Цена за штуку. Для формата до 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм</div></div>
+                <div class="service-card"><div class="service-icon">◫</div><h3>Радиальный рез (криволинейный)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">850 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">1000 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">1700 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">1850 ₽/м.пог.</span></div></div><div class="service-note">* Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
+                <div class="service-card"><div class="service-icon">Γ</div><h3>Г-образный распил</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">750 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">870 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">2500 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">2700 ₽/м.пог.</span></div></div><div class="service-note">* Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
+                <div class="service-card"><div class="service-icon">Π</div><h3>П-образный распил</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">900 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">1000 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">4500 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">4700 ₽/м.пог.</span></div></div><div class="service-note">* Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
+                <div class="service-card"><div class="service-icon">◢</div><h3>Заусовка под 45° (прямая)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">500 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">550 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">1550 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">1600 ₽/м.пог.</span></div></div><div class="service-note">* Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
+                <div class="service-card"><div class="service-icon">◣</div><h3>Заусовка под 45° (Г-образная)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">750 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">850 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">2000 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">2000 ₽/м.пог.</span></div></div><div class="service-note">* Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
+                <div class="service-card"><div class="service-icon">◥</div><h3>Заусовка под 45° (П-образная)</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">850 ₽/м.пог.</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">950 ₽/м.пог.</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">2500 ₽/м.пог.</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">2900 ₽/м.пог.</span></div></div><div class="service-note">* Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
+                <div class="service-card"><div class="service-icon">□</div><h3>Сквозной вырез под люк</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">4500 ₽/шт</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">4800 ₽/шт</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">6200 ₽/шт</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">6500 ₽/шт</span></div></div><div class="service-note">* Цена за штуку. Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
+                <div class="service-card"><div class="service-icon">◎</div><h3>Вырез отверстий (сверление)</h3><div class="service-prices"><div class="price-row"><span>До 70 мм (до 1200)</span><span class="highlight">450 ₽/шт</span></div><div class="price-row"><span>До 70 мм (до 1600)</span><span class="highlight">450 ₽/шт</span></div><div class="price-row"><span>До 70 мм (до 3200)</span><span class="highlight">750 ₽/шт</span></div><div class="price-row"><span>70-110 мм (до 1200)</span><span class="highlight">800 ₽/шт</span></div><div class="price-row"><span>70-110 мм (до 1600)</span><span class="highlight">800 ₽/шт</span></div><div class="price-row"><span>70-110 мм (до 3200)</span><span class="highlight">1200 ₽/шт</span></div></div><div class="service-note">* Цена за штуку. Для форматов 3000 и 3200 мм: +50 ₽ за каждый мм толщины свыше 6 мм; для 1200 и 1600 мм: +50 ₽ за каждый мм свыше 10 мм</div></div>
                 <div class="service-card"><div class="service-icon">◠</div><h3>Скругление внешних углов</h3><div class="service-prices"><div class="price-row"><span>До 1200 мм</span><span class="highlight">500 ₽/шт</span></div><div class="price-row"><span>До 1600 мм</span><span class="highlight">500 ₽/шт</span></div><div class="price-row"><span>До 3000 мм</span><span class="highlight">700 ₽/шт</span></div><div class="price-row"><span>До 3200 мм</span><span class="highlight">700 ₽/шт</span></div></div><div class="service-note">* Цена за штуку. Без доплаты за толщину</div></div>
                 <div class="service-card"><div class="service-icon">🚚</div><h3>Забор и доставка</h3><div class="service-prices"><div class="price-row"><span>Забор материала</span><span class="highlight">1000 ₽</span></div><div class="price-row"><span>Доставка готового изделия</span><span class="highlight">1000 ₽</span></div></div><div class="service-note">* Забор с квартиры и доставка на этаж рассчитываются индивидуально</div></div>
                 <div class="service-card" style="border-top-color: #28a745;"><div class="service-icon" style="background: #e9ecef;">📐</div><h3>Оптимизация раскроя</h3><div class="service-prices"><div class="price-row" style="justify-content: center;"><span class="highlight" style="color: #28a745;">БЕСПЛАТНО</span></div></div><div class="service-note">* Приоритет перед всеми заказами. Только наше оборудование позволяет такую возможность!</div></div>
@@ -608,6 +626,7 @@
     </div>
 </section>
 
+<!-- Процесс -->
 <section class="process" id="process">
     <div class="container">
         <div class="section-header"><h2>Как заказать резку</h2><div class="accent-line"></div><p>Простой процесс от заявки до готового изделия</p></div>
@@ -620,94 +639,50 @@
     </div>
 </section>
 
+<!-- Детальный калькулятор -->
 <section class="full-calculator" id="calculator">
     <div class="container">
         <div class="section-header"><h2>Детальный расчёт стоимости</h2><div class="accent-line"></div><p>Добавьте все необходимые виды резки для точного расчёта</p></div>
         <div class="full-calc-container">
-            <div class="calc-section"><h3>1. Выберите материал</h3>
-                <div class="material-selector">
-                    <div class="material-card active" onclick="selectMaterial('keramogranit',this)">Керамогранит</div>
-                    <div class="material-card" onclick="selectMaterial('mramor',this)">Мрамор</div>
-                    <div class="material-card" onclick="selectMaterial('kvarc',this)">Кварцевый агломерат</div>
-                </div>
-                <input type="hidden" id="full-material" value="keramogranit">
-                <div class="form-row"><div class="form-group"><label>Толщина (мм)</label><input type="number" id="full-thickness" value="6" min="6" step="1"></div></div>
+            <div class="positions-container"><h3>Позиции</h3><div id="full-positions"></div>
+                <button class="add-position-btn" onclick="addFullPosition()">+ Добавить позицию</button>
             </div>
-            <div class="positions-container"><h3>2. Добавьте позиции</h3><div id="full-positions"></div>
-                <button class="add-position-btn" onclick="addFullPosition()">+ Добавить вид резки</button>
-            </div>
-            <div class="full-summary"><h3>Итого по заказу</h3><div>Материал: <span id="summary-material">Керамогранит</span></div><div>Толщина: <span id="summary-thickness">6 мм</span></div><div>Количество позиций: <span id="full-count">0</span></div><div style="font-size:1.4rem; margin-top:0.5rem;">ОБЩАЯ СУММА: <span id="full-total">0 ₽</span></div></div>
+            <div class="full-summary"><h3>Итого по заказу</h3><div>Количество позиций: <span id="full-count">0</span></div><div style="font-size:1.4rem; margin-top:0.5rem;">ОБЩАЯ СУММА: <span id="full-total">0 ₽</span></div></div>
             <div class="calc-actions" style="margin-top:1rem;"><button class="btn-pdf" onclick="printOrderDetails()" style="background:#e9ecef; border:none; padding:0.6rem 1.2rem; border-radius:40px; cursor:pointer;">🖨️ Распечатать детали заказа</button></div>
         </div>
     </div>
 </section>
 
+<!-- Форма заказа (сокращена, но полная версия из предыдущего кода) -->
 <section class="contact-form-section" id="order-form">
     <div class="container" style="max-width:1000px">
         <div class="section-header"><h2>Оформление заказа</h2><div class="accent-line"></div><p>Заполните форму — мы свяжемся для подтверждения деталей</p></div>
         <form class="contact-form" id="main-form" action="https://кафельгранит124.рф/send.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="calculation_data" id="calculation-data">
-            <div class="form-row">
-                <div class="form-group"><label>Ваше имя *</label><input type="text" name="name" id="form-name" required></div>
-                <div class="form-group"><label>Телефон *</label><input type="tel" name="phone" id="form-phone" required></div>
-            </div>
-            <div class="checkbox-group">
-                <div class="checkbox-item"><input type="checkbox" id="self-pickup" name="self_pickup" value="1" onchange="toggleSelfPickup()"> <label>Привезу/заберу материал сам</label></div>
-            </div>
-            <div id="address-fields">
-                <div class="form-row hidden" id="pickup-address-row">
-                    <div class="form-group"><label>Адрес забора материала *</label><input type="text" name="pickup_address" id="pickup-address"></div>
-                </div>
-            </div>
+            <div class="form-row"><div class="form-group"><label>Ваше имя *</label><input type="text" name="name" id="form-name" required></div><div class="form-group"><label>Телефон *</label><input type="tel" name="phone" id="form-phone" required></div></div>
+            <div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" id="self-pickup" name="self_pickup" value="1" onchange="toggleSelfPickup()"> <label>Привезу/заберу материал сам</label></div></div>
+            <div id="address-fields"><div class="form-row hidden" id="pickup-address-row"><div class="form-group"><label>Адрес забора материала *</label><input type="text" name="pickup_address" id="pickup-address"></div></div></div>
             <div class="delivery-calculator" id="delivery-calculator">
                 <h4>🚚 Калькулятор доставки и забора</h4>
-                <div class="delivery-option">
-                    <input type="checkbox" name="need_pickup" id="calc-pickup" onchange="calculateDelivery(); togglePickupAddress();">
-                    <label for="calc-pickup">Забор материала от подъезда (без погрузки)</label>
-                    <span class="delivery-price">1000 ₽</span>
-                </div>
-                <div class="delivery-option">
-                    <input type="checkbox" name="need_delivery" id="calc-delivery" onchange="toggleDeliveryAddress()">
-                    <label for="calc-delivery">Доставка готового изделия до подъезда</label>
-                    <span class="delivery-price">1000 ₽</span>
-                </div>
+                <div class="delivery-option"><input type="checkbox" name="need_pickup" id="calc-pickup" onchange="calculateDelivery(); togglePickupAddress();"><label for="calc-pickup">Забор материала от подъезда (без погрузки)</label><span class="delivery-price">1000 ₽</span></div>
+                <div class="delivery-option"><input type="checkbox" name="need_delivery" id="calc-delivery" onchange="toggleDeliveryAddress()"><label for="calc-delivery">Доставка готового изделия до подъезда</label><span class="delivery-price">1000 ₽</span></div>
                 <div class="delivery-total"><span>Стоимость доставки:</span><span id="delivery-cost">0 ₽</span></div>
                 <div class="delivery-grand-total"><span>ОБЩАЯ СУММА ЗАКАЗА:</span><span id="grand-total">0 ₽</span></div>
             </div>
-            <div class="form-row hidden" id="delivery-address-row">
-                <div class="form-group"><label>Адрес доставки готового изделия *</label><input type="text" name="delivery_address" id="delivery-address"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Материал</label><input type="text" name="order_material" id="order-material" readonly></div>
-                <div class="form-group"><label>Толщина</label><input type="text" name="order_thickness" id="order-thickness" readonly></div>
-            </div>
+            <div class="form-row hidden" id="delivery-address-row"><div class="form-group"><label>Адрес доставки готового изделия *</label><input type="text" name="delivery_address" id="delivery-address"></div></div>
             <div class="form-group"><label>Список работ</label><textarea name="order_positions" id="order-positions" rows="5" readonly></textarea></div>
-            <div class="form-row">
-                <div class="form-group"><label>Стоимость резки</label><input type="text" name="order_cutting_total" id="order-cutting-total" readonly></div>
-                <div class="form-group"><label>Итоговая сумма (с доставкой)</label><input type="text" name="order_total" id="order-total" readonly></div>
-            </div>
-            <div class="form-group">
-                <label>Чертежи и фото материала (можно зарисовку от руки) <span style="color:#dc3545">*</span></label>
+            <div class="form-row"><div class="form-group"><label>Стоимость резки</label><input type="text" name="order_cutting_total" id="order-cutting-total" readonly></div><div class="form-group"><label>Итоговая сумма (с доставкой)</label><input type="text" name="order_total" id="order-total" readonly></div></div>
+            <div class="form-group"><label>Чертежи и фото материала <span style="color:#dc3545">*</span></label>
                 <div class="file-upload" id="file-upload-area" onclick="document.getElementById('form-file-input').click()">
                     <input type="file" name="attachments[]" id="form-file-input" multiple accept="image/*,.pdf,.dwg,.dxf" onchange="handleFileSelect(this)">
                     <div style="font-size: 3rem; margin-bottom: 1rem;">📎</div>
-                    <div style="font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem;">
-                        Нажмите чтобы прикрепить файлы (фото плиты и чертежи раскроя каждой плиты (можно зарисовку от руки))
-                    </div>
-                    <div style="font-size: 0.9rem; color: #6C757D; margin-bottom: 0.5rem;">
-                        PDF, JPG, PNG, DWG, DXF (до 10 файлов)
-                    </div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem;">Нажмите чтобы прикрепить файлы (фото плиты и чертежи раскроя каждой плиты)</div>
+                    <div style="font-size: 0.9rem; color: #6C757D; margin-bottom: 0.5rem;">PDF, JPG, PNG, DWG, DXF (до 10 файлов)</div>
                     <div id="file-list" style="margin-top: 1rem; text-align: left;"></div>
                 </div>
                 <div id="file-error" style="color:#dc3545; display:none;">⚠️ Обязательно прикрепите хотя бы один файл!</div>
             </div>
-            <div class="form-group">
-                <label>Уведомить в мессенджере (необязательно):</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="radio" name="channel" value="telegram" id="channel-telegram"> <label for="channel-telegram">Telegram</label></div>
-                    <div class="checkbox-item"><input type="radio" name="channel" value="max" id="channel-max"> <label for="channel-max">MAX</label></div>
-                </div>
-            </div>
+            <div class="form-group"><label>Уведомить в мессенджере (необязательно):</label><div class="checkbox-group"><div class="checkbox-item"><input type="radio" name="channel" value="telegram" id="channel-telegram"> <label for="channel-telegram">Telegram</label></div><div class="checkbox-item"><input type="radio" name="channel" value="max" id="channel-max"> <label for="channel-max">MAX</label></div></div></div>
             <div class="form-group"><label>Комментарий к заказу</label><textarea name="comment" id="form-comment" placeholder="Особые требования, удобное время, этаж (для расчета подъема/спуска) и т.д."></textarea></div>
             <button type="submit" class="submit-btn" id="submit-btn">Отправить заявку</button>
             <div style="text-align:center; margin-top:1rem; font-size:0.85rem; color:#6C757D;">Или напишите напрямую: <a href="https://web.max.ru/89029786302" style="color:#5A6268;">Max</a> | <a href="https://t.me/+79029786302" style="color:#5A6268;">Telegram</a> | <a href="tel:+79029786302" style="color:#5A6268;">Позвонить</a></div>
@@ -715,6 +690,7 @@
     </div>
 </section>
 
+<!-- Галерея -->
 <section class="gallery" id="gallery">
     <div class="container">
         <div class="section-header"><h2>Примеры работ</h2><div class="accent-line"></div><p>Сложные проекты, выполненные на нашем производстве</p></div>
@@ -729,6 +705,7 @@
     </div>
 </section>
 
+<!-- Преимущества гидроабразива -->
 <section class="advantages" id="advantages">
     <div class="container">
         <div class="section-header"><h2>Почему гидроабразив?</h2><div class="accent-line"></div><p>Сравнение технологий резки</p></div>
@@ -745,6 +722,7 @@
     </div>
 </section>
 
+<!-- Контакты -->
 <section class="contact" id="contact">
     <div class="contact-content" style="max-width:800px; margin:0 auto;">
         <h2>Готовы начать проект?</h2>
@@ -752,23 +730,20 @@
         <a href="tel:+79029786302" class="contact-phone" style="font-size:2rem; color:#5A6268; text-decoration:none; font-weight:700;">+7 (902) 978-63-02</a>
         <div class="work-hours" style="margin:1rem 0;">Пн-Пт: 9:00 — 18:00</div>
         <div class="contact-address"><strong>Адрес производства:</strong><br>г. Красноярск, ул. 26 Бакинских Комиссаров, 8 стр 81<br><a href="https://yandex.ru/maps/org/kafelgranit124/187010131527/?ll=93.038262%2C56.034189&z=16" target="_blank" style="color:#5A6268;">Посмотреть на карте →</a></div>
-        <div class="contact-buttons" style="margin-top:1.5rem; display:flex; gap:1rem; justify-content:center;">
-            <a href="https://web.max.ru/89029786302" class="contact-btn" style="background:#6c757d; color:white; padding:0.5rem 1.2rem; border-radius:40px; text-decoration:none;">💬 Написать в Max</a>
-            <a href="https://t.me/+79029786302" class="contact-btn" style="background:#0088cc; color:white; padding:0.5rem 1.2rem; border-radius:40px; text-decoration:none;">✈️ Написать в Telegram</a>
-        </div>
+        <div class="contact-buttons" style="margin-top:1.5rem; display:flex; gap:1rem; justify-content:center;"><a href="https://web.max.ru/89029786302" class="contact-btn" style="background:#6c757d; color:white; padding:0.5rem 1.2rem; border-radius:40px; text-decoration:none;">💬 Написать в Max</a><a href="https://t.me/+79029786302" class="contact-btn" style="background:#0088cc; color:white; padding:0.5rem 1.2rem; border-radius:40px; text-decoration:none;">✈️ Написать в Telegram</a></div>
     </div>
 </section>
 
 <footer>
     <div class="footer-logo"><img src="https://i.ibb.co/nqYTL9gL/111.png" style="height:70px;"></div>
-    <p><strong>КафельГранит124</strong> — профессиональная гидроабразивная резка в Красноярске</p>
+    <p><strong>КафельГранит124</strong> — профессиональная гидроабразивная и алмазная резка в Красноярске</p>
     <div class="footer-address">Адрес: ул. 26 Бакинских Комиссаров, 8 стр 81<br>Режим работы: Пн-Пт 9:00-18:00<br>Тел: +7 (902) 978-63-02 | Email: info@кафельгранит124.рф</div>
     <div class="footer-links"><a href="https://yandex.ru/maps/org/kafelgranit124/187010131527/">Яндекс.Карты</a> | <a href="tel:+79029786302">Позвонить</a> | <a href="mailto:info@кафельгранит124.рф">Написать</a></div>
     <p style="margin-top:1rem; font-size:0.8rem;">© 2025 КафельГранит124. Все права защищены.</p>
 </footer>
 
 <script>
-    // Цены, типы, множители
+    // Цены, типы, множители (полный набор)
     const prices = {
         pryamoy: {1200:350,1600:450,3000:1200,3200:1350,unit:'м.пог.'}, fas_zav: {1200:80,1600:80,3000:270,3200:270,unit:'м.пог.'},
         radial: {1200:850,1600:1000,3000:1700,3200:1850,unit:'м.пог.'}, g_obr: {1200:750,1600:870,3000:2500,3200:2700,unit:'м.пог.'},
@@ -786,72 +761,48 @@
     };
     const materials = {keramogranit:'Керамогранит', mramor:'Мрамор', kvarc:'Кварцевый агломерат'};
     const materialMultipliers = {keramogranit:1, mramor:2, kvarc:1.7};
-
-    let quickPositions = [], fullPositions = [], currentMaterial = 'keramogranit', currentThickness = 6, selectedFiles = [], deliveryCost = 0, cuttingTotal = 0;
-
-    function addQuickPosition() {
-        let id = Date.now() + Math.floor(Math.random() * 1000000);
-        let div = document.createElement('div'); div.className = 'position-card'; div.id = `quick-pos-${id}`;
-        div.innerHTML = `
-            <div class="position-header"><span>Позиция ${quickPositions.length+1}</span><button class="remove-btn" onclick="removeQuickPosition(${id})">Удалить</button></div>
-            <div class="position-grid">
-                <div><div class="field-label">Вид резки</div><select id="quick-type-${id}" onchange="calculateQuick()">${Object.keys(cutTypes).map(k=>`<option value="${k}">${cutTypes[k]}</option>`).join('')}</select></div>
-                <div><div class="field-label">Формат материала</div><select id="quick-format-${id}" onchange="calculateQuick()"><option value="" disabled selected>Выбрать формат</option><option value="1200">до 1200 мм</option><option value="1600">до 1600 мм</option><option value="3000">до 3000 мм</option><option value="3200">до 3200 мм</option></select></div>
-                <div><div class="field-label">Длина реза (м.пог. или шт)</div><input type="number" id="quick-qty-${id}" value="1" min="0.1" step="0.1" oninput="calculateQuick()" placeholder="Например: 2.5"></div>
-                <div class="position-price" id="quick-price-${id}">0 ₽</div>
-            </div>
-        `;
-        document.getElementById('quick-positions').appendChild(div);
-        quickPositions.push(id);
-        calculateQuick();
+    const thicknessOptions = {
+        keramogranit: [3,6,9,10,11,12,15,20],
+        mramor: [20],
+        kvarc: [20]
+    };
+    
+    function getThicknessSurcharge(format, thickness, cutType) {
+        if (cutType === 'fas_zav' || cutType === 'skruglenie') return 0;
+        if (format >= 3000) {
+            if (thickness > 6) return (thickness - 6) * 50;
+            else return 0;
+        } else {
+            if (thickness > 10) return (thickness - 10) * 50;
+            else return 0;
+        }
     }
-    function removeQuickPosition(id) { if(quickPositions.length<=1) return; document.getElementById(`quick-pos-${id}`).remove(); quickPositions = quickPositions.filter(p=>p!==id); calculateQuick(); }
-    function calculateQuick() {
-        let total=0, thickness=parseInt(document.getElementById('quick-thickness').value)||6, multiplier=materialMultipliers[document.getElementById('quick-material').value];
-        quickPositions.forEach(id=>{
-            let type=document.getElementById(`quick-type-${id}`).value, format=document.getElementById(`quick-format-${id}`).value, qty=parseFloat(document.getElementById(`quick-qty-${id}`).value)||0;
-            if (!format || !qty) return;
-            format = parseInt(format);
-            let price = prices[type][format];
-            if(format===3200 && thickness>6 && type!=='fas_zav' && type!=='skruglenie') price += (thickness-6)*50;
-            price *= multiplier;
-            let itemTotal = price*qty;
-            document.getElementById(`quick-price-${id}`).innerText = itemTotal.toLocaleString('ru-RU')+' ₽';
-            total += itemTotal;
+    
+    let fullPositions = [], selectedFiles = [], deliveryCost = 0, cuttingTotal = 0;
+    
+    function getThicknessSelectHtml(id, material, currentThick = null) {
+        const available = thicknessOptions[material] || [6];
+        let options = '';
+        available.forEach(th => {
+            options += `<option value="${th}" ${currentThick !== null && currentThick == th ? 'selected' : ''}>${th} мм</option>`;
         });
-        document.getElementById('quick-total').innerText = total.toLocaleString('ru-RU')+' ₽';
+        return `<select id="${id}" onchange="calculateFull();updateOrderForm();">${options}</select>`;
     }
-
+    
     function addFullPosition() {
         let id = Date.now() + Math.floor(Math.random() * 1000000);
+        let defaultMaterial = 'keramogranit';
+        let defaultThick = thicknessOptions[defaultMaterial][0];
         let div = document.createElement('div'); div.className = 'full-position-card'; div.id = `full-pos-${id}`;
         div.innerHTML = `
-            <div class="full-position-header" style="display:flex; justify-content:space-between; margin-bottom:0.8rem;">
-                <span>Позиция ${fullPositions.length+1}</span>
-                <button class="remove-btn" onclick="removeFullPosition(${id})">Удалить</button>
-            </div>
+            <div class="position-header"><span>Позиция ${fullPositions.length+1}</span><button class="remove-btn" onclick="removeFullPosition(${id})">Удалить</button></div>
             <div class="full-position-grid">
-                <div>
-                    <div class="field-label">Вид резки</div>
-                    <select id="full-type-${id}" onchange="calculateFull();updateOrderForm()">${Object.keys(cutTypes).map(k=>`<option value="${k}">${cutTypes[k]}</option>`).join('')}</select>
-                </div>
-                <div>
-                    <div class="field-label">Формат</div>
-                    <select id="full-format-${id}" onchange="calculateFull();updateOrderForm()">
-                        <option value="1200">до 1200 мм</option>
-                        <option value="1600">до 1600 мм</option>
-                        <option value="3000">до 3000 мм</option>
-                        <option value="3200">до 3200 мм</option>
-                    </select>
-                </div>
-                <div>
-                    <div class="field-label">Кол-во (м.пог. или шт)</div>
-                    <input type="number" id="full-qty-${id}" value="1" min="0.1" step="0.1" oninput="calculateFull();updateOrderForm()">
-                </div>
-                <div>
-                    <div class="field-label">Сумма</div>
-                    <div class="position-total" id="full-price-${id}">0 ₽</div>
-                </div>
+                <div><div class="field-label">Материал</div><select id="full-material-${id}" onchange="updateMaterialInPosition(${id}, this.value); calculateFull();updateOrderForm();"><option value="keramogranit">Керамогранит</option><option value="mramor">Мрамор</option><option value="kvarc">Кварцевый агломерат</option></select></div>
+                <div><div class="field-label">Вид резки</div><select id="full-type-${id}" onchange="calculateFull();updateOrderForm()">${Object.keys(cutTypes).map(k=>`<option value="${k}">${cutTypes[k]}</option>`).join('')}</select></div>
+                <div><div class="field-label">Формат</div><select id="full-format-${id}" onchange="calculateFull();updateOrderForm()"><option value="1200">до 1200 мм</option><option value="1600">до 1600 мм</option><option value="3000">до 3000 мм</option><option value="3200">до 3200 мм</option></select></div>
+                <div><div class="field-label">Толщина, мм</div>${getThicknessSelectHtml(`full-thick-${id}`, defaultMaterial, defaultThick)}</div>
+                <div><div class="field-label">Кол-во (м.пог. или шт)</div><input type="number" id="full-qty-${id}" value="1" min="0.1" step="0.1" oninput="calculateFull();updateOrderForm()"></div>
+                <div><div class="field-label">Сумма</div><div class="position-total" id="full-price-${id}">0 ₽</div></div>
             </div>
         `;
         document.getElementById('full-positions').appendChild(div);
@@ -859,87 +810,44 @@
         calculateFull();
         updateOrderForm();
     }
-    function removeFullPosition(id) { if(fullPositions.length<=1) return; document.getElementById(`full-pos-${id}`).remove(); fullPositions = fullPositions.filter(p=>p!==id); calculateFull(); updateOrderForm(); }
     
-    // Добавление позиции с заданными значениями для переноса
-    function addFullPositionWithValues(type, format, qty) {
-        addFullPosition(); // создаст новую позицию и добавит id в fullPositions
-        let lastId = fullPositions[fullPositions.length - 1];
-        if (lastId) {
-            document.getElementById(`full-type-${lastId}`).value = type;
-            document.getElementById(`full-format-${lastId}`).value = format;
-            document.getElementById(`full-qty-${lastId}`).value = qty;
-        }
-        // пересчет будет сделан в addFullPosition -> calculateFull, но после установки значений нужно пересчитать еще раз
-        calculateFull();
-        updateOrderForm();
-    }
-    
-    function transferQuickToFull() {
-        // 1. Материал
-        let quickMaterialVal = document.getElementById('quick-material').value;
-        let materialCards = document.querySelectorAll('.material-card');
-        let targetCard = null;
-        for (let card of materialCards) {
-            let cardText = card.innerText.trim();
-            if ((quickMaterialVal === 'keramogranit' && cardText === 'Керамогранит') ||
-                (quickMaterialVal === 'mramor' && cardText === 'Мрамор') ||
-                (quickMaterialVal === 'kvarc' && cardText === 'Кварцевый агломерат')) {
-                targetCard = card;
-                break;
+    function updateMaterialInPosition(id, material) {
+        const thickSelect = document.getElementById(`full-thick-${id}`);
+        if (thickSelect) {
+            const currentVal = parseInt(thickSelect.value);
+            const available = thicknessOptions[material];
+            let newOptions = '';
+            available.forEach(th => {
+                newOptions += `<option value="${th}" ${currentVal === th ? 'selected' : ''}>${th} мм</option>`;
+            });
+            thickSelect.innerHTML = newOptions;
+            if (!available.includes(currentVal) && available.length) {
+                thickSelect.value = available[0];
             }
         }
-        if (targetCard) {
-            selectMaterial(quickMaterialVal, targetCard);
-        }
-        
-        // 2. Толщина
-        let quickThick = document.getElementById('quick-thickness').value;
-        document.getElementById('full-thickness').value = quickThick;
-        currentThickness = parseInt(quickThick);
-        document.getElementById('summary-thickness').innerText = currentThickness + ' мм';
-        
-        // 3. Очистить текущие позиции в детальном
-        document.querySelectorAll('#full-positions .full-position-card').forEach(el => el.remove());
-        fullPositions = [];
-        
-        // 4. Получить все позиции из быстрого калькулятора и добавить их
-        let quickPositionCards = document.querySelectorAll('#quick-positions .position-card');
-        if (quickPositionCards.length === 0) {
-            // если нет ни одной (по умолчанию есть), добавим хотя бы одну пустую
-            addFullPosition();
-        } else {
-            quickPositionCards.forEach(quickCard => {
-                let typeSelect = quickCard.querySelector('select[id^="quick-type-"]');
-                let formatSelect = quickCard.querySelector('select[id^="quick-format-"]');
-                let qtyInput = quickCard.querySelector('input[id^="quick-qty-"]');
-                if (typeSelect && formatSelect && qtyInput) {
-                    let typeVal = typeSelect.value;
-                    let formatVal = parseInt(formatSelect.value);
-                    let qtyVal = parseFloat(qtyInput.value);
-                    if (typeVal && formatVal && !isNaN(qtyVal) && qtyVal > 0) {
-                        addFullPositionWithValues(typeVal, formatVal, qtyVal);
-                    } else {
-                        addFullPosition(); // добавить пустую если данные некорректны
-                    }
-                } else {
-                    addFullPosition();
-                }
-            });
-        }
-        // 5. Пересчет итогов (уже сделан внутри addFullPosition и addFullPositionWithValues, но на всякий случай)
+    }
+    
+    function removeFullPosition(id) {
+        if(fullPositions.length<=1) return;
+        document.getElementById(`full-pos-${id}`).remove();
+        fullPositions = fullPositions.filter(p=>p!==id);
         calculateFull();
         updateOrderForm();
     }
     
     function calculateFull() {
-        let total=0, multiplier=materialMultipliers[currentMaterial];
-        fullPositions.forEach(id=>{
-            let type=document.getElementById(`full-type-${id}`).value, format=parseInt(document.getElementById(`full-format-${id}`).value), qty=parseFloat(document.getElementById(`full-qty-${id}`).value)||0;
-            let price = prices[type][format];
-            if(format===3200 && currentThickness>6 && type!=='fas_zav' && type!=='skruglenie') price += (currentThickness-6)*50;
-            price *= multiplier;
-            let itemTotal = price*qty;
+        let total = 0;
+        fullPositions.forEach(id => {
+            let material = document.getElementById(`full-material-${id}`).value;
+            let type = document.getElementById(`full-type-${id}`).value;
+            let format = parseInt(document.getElementById(`full-format-${id}`).value);
+            let thickness = parseInt(document.getElementById(`full-thick-${id}`).value) || 6;
+            let qty = parseFloat(document.getElementById(`full-qty-${id}`).value) || 0;
+            let basePrice = prices[type][format];
+            let surcharge = getThicknessSurcharge(format, thickness, type);
+            let multiplier = materialMultipliers[material];
+            let price = (basePrice + surcharge) * multiplier;
+            let itemTotal = price * qty;
             document.getElementById(`full-price-${id}`).innerText = itemTotal.toLocaleString('ru-RU')+' ₽';
             total += itemTotal;
         });
@@ -947,15 +855,9 @@
         document.getElementById('full-count').innerText = fullPositions.length;
         document.getElementById('full-total').innerText = total.toLocaleString('ru-RU')+' ₽';
         updateGrandTotal();
-    }
-    function selectMaterial(material, elem) {
-        currentMaterial = material;
-        document.querySelectorAll('.material-card').forEach(c=>c.classList.remove('active'));
-        elem.classList.add('active');
-        document.getElementById('summary-material').innerText = materials[material];
-        calculateFull();
         updateOrderForm();
     }
+    
     function updateGrandTotal() { let grand = cuttingTotal + deliveryCost; document.getElementById('grand-total').innerText = grand.toLocaleString('ru-RU')+' ₽'; document.getElementById('order-total').value = grand.toLocaleString('ru-RU')+' ₽'; }
     function calculateDelivery() { deliveryCost = (document.getElementById('calc-pickup').checked?1000:0) + (document.getElementById('calc-delivery').checked?1000:0); document.getElementById('delivery-cost').innerText = deliveryCost.toLocaleString('ru-RU')+' ₽'; updateGrandTotal(); updateOrderForm(); }
     function toggleSelfPickup() {
@@ -966,22 +868,15 @@
         let deliveryAddressRow = document.getElementById('delivery-address-row');
         let calcPickup = document.getElementById('calc-pickup');
         let calcDelivery = document.getElementById('calc-delivery');
-
         if (isSelf) {
-            pickupRow.classList.add('hidden');
-            pickupInput.required = false;
-            pickupInput.value = '';
-            deliveryCalculator.classList.add('hidden');
-            deliveryAddressRow.classList.add('hidden');
+            pickupRow.classList.add('hidden'); pickupInput.required = false; pickupInput.value = '';
+            deliveryCalculator.classList.add('hidden'); deliveryAddressRow.classList.add('hidden');
             if (calcDelivery) calcDelivery.disabled = true;
             if (calcPickup) calcPickup.checked = false;
             if (calcDelivery) calcDelivery.checked = false;
-            deliveryCost = 0;
-            document.getElementById('delivery-cost').innerText = '0 ₽';
-            updateGrandTotal();
+            deliveryCost = 0; document.getElementById('delivery-cost').innerText = '0 ₽'; updateGrandTotal();
         } else {
-            pickupRow.classList.remove('hidden');
-            pickupInput.required = true;
+            pickupRow.classList.remove('hidden'); pickupInput.required = true;
             deliveryCalculator.classList.remove('hidden');
             if (calcDelivery) calcDelivery.disabled = false;
             calculateDelivery();
@@ -995,45 +890,40 @@
         let isSelf = document.getElementById('self-pickup').checked;
         let pickupRow = document.getElementById('pickup-address-row');
         let pickupInput = document.getElementById('pickup-address');
-        if (isSelf) {
-            pickupRow.classList.add('hidden');
-            pickupInput.required = false;
-            pickupInput.value = '';
-            return;
-        }
-        if (isPickup) {
-            pickupRow.classList.remove('hidden');
-            pickupInput.required = true;
-        } else {
-            pickupRow.classList.add('hidden');
-            pickupInput.required = false;
-            pickupInput.value = '';
-        }
+        if (isSelf) { pickupRow.classList.add('hidden'); pickupInput.required = false; pickupInput.value = ''; return; }
+        if (isPickup) { pickupRow.classList.remove('hidden'); pickupInput.required = true; }
+        else { pickupRow.classList.add('hidden'); pickupInput.required = false; pickupInput.value = ''; }
     }
+    
     function updateOrderForm() {
-        document.getElementById('order-material').value = materials[currentMaterial];
-        document.getElementById('order-thickness').value = currentThickness+' мм';
-        document.getElementById('order-cutting-total').value = cuttingTotal.toLocaleString('ru-RU')+' ₽';
         let text = '';
-        fullPositions.forEach((id,i)=>{ let type=document.getElementById(`full-type-${id}`).value, format=document.getElementById(`full-format-${id}`).value, qty=document.getElementById(`full-qty-${id}`).value; text += `${i+1}. ${cutTypes[type]}\n   Формат: до ${format} мм\n   Кол-во: ${qty} ${prices[type].unit}\n   Сумма: ${document.getElementById(`full-price-${id}`).innerText}\n\n`; });
+        fullPositions.forEach((id,i)=>{
+            let material = document.getElementById(`full-material-${id}`).value;
+            let type = document.getElementById(`full-type-${id}`).value;
+            let format = document.getElementById(`full-format-${id}`).value;
+            let thickness = document.getElementById(`full-thick-${id}`).value;
+            let qty = document.getElementById(`full-qty-${id}`).value;
+            let priceSpan = document.getElementById(`full-price-${id}`).innerText;
+            text += `${i+1}. Материал: ${materials[material]}, ${cutTypes[type]}\n   Формат: до ${format} мм, Толщина: ${thickness} мм\n   Кол-во: ${qty} ${prices[type].unit}\n   Сумма: ${priceSpan}\n\n`;
+        });
         text += `СТОИМОСТЬ РЕЗКИ: ${cuttingTotal.toLocaleString('ru-RU')} ₽\n`;
         if(deliveryCost>0) text += `СТОИМОСТЬ ДОСТАВКИ: ${deliveryCost.toLocaleString('ru-RU')} ₽\n`;
         text += `ОБЩАЯ СУММА: ${(cuttingTotal+deliveryCost).toLocaleString('ru-RU')} ₽`;
         document.getElementById('order-positions').value = text;
-        document.getElementById('calculation-data').value = JSON.stringify({material: materials[currentMaterial], thickness: currentThickness, cuttingTotal, deliveryCost, total: cuttingTotal+deliveryCost});
+        document.getElementById('order-cutting-total').value = cuttingTotal.toLocaleString('ru-RU')+' ₽';
+        document.getElementById('calculation-data').value = JSON.stringify({positions: fullPositions.map(id=>({material: document.getElementById(`full-material-${id}`).value, type: document.getElementById(`full-type-${id}`).value, format: document.getElementById(`full-format-${id}`).value, thickness: document.getElementById(`full-thick-${id}`).value, qty: document.getElementById(`full-qty-${id}`).value})), cuttingTotal, deliveryCost, total: cuttingTotal+deliveryCost});
     }
+    
     function handleFileSelect(input) {
         selectedFiles = Array.from(input.files);
         let listDiv = document.getElementById('file-list');
         let uploadArea = document.getElementById('file-upload-area');
         if (selectedFiles.length > 0) {
             listDiv.innerHTML = selectedFiles.map((f, i) => `<div>📄 ${f.name} <button type="button" onclick="removeFile(${i})">Удалить</button></div>`).join('');
-            uploadArea.classList.remove('error');
-            uploadArea.classList.add('success');
+            uploadArea.classList.remove('error'); uploadArea.classList.add('success');
             document.getElementById('file-error').style.display = 'none';
         } else {
-            listDiv.innerHTML = '';
-            uploadArea.classList.remove('success');
+            listDiv.innerHTML = ''; uploadArea.classList.remove('success');
         }
     }
     function removeFile(index) {
@@ -1043,116 +933,60 @@
         document.getElementById('form-file-input').files = dt.files;
         handleFileSelect(document.getElementById('form-file-input'));
     }
-       
-    // Отправка формы через fetch на send.php
+    
     document.getElementById('main-form').addEventListener('submit', async function(e) {
         e.preventDefault();
-        if (selectedFiles.length === 0) {
-            document.getElementById('file-upload-area').classList.add('error');
-            document.getElementById('file-error').style.display = 'block';
-            document.getElementById('file-upload-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            return;
-        }
-        if (fullPositions.length === 0) {
-            alert('Добавьте хотя бы одну позицию для резки');
-            return;
-        }
-
+        if (selectedFiles.length === 0) { document.getElementById('file-upload-area').classList.add('error'); document.getElementById('file-error').style.display = 'block'; document.getElementById('file-upload-area').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        if (fullPositions.length === 0) { alert('Добавьте хотя бы одну позицию для резки'); return; }
         const notification = document.getElementById('notification');
-        notification.textContent = 'Отправка...';
-        notification.style.display = 'block';
-
+        notification.textContent = 'Отправка...'; notification.style.display = 'block';
         const formData = new FormData(this);
-        for (let file of selectedFiles) {
-            formData.append('attachments[]', file);
-        }
-
+        for (let file of selectedFiles) formData.append('attachments[]', file);
         try {
-          const response = await fetch('https://kafelgranit124.ru/send.php', {
-    method: 'POST',
-    body: formData
-});
-
+            const response = await fetch('https://kafelgranit124.ru/send.php', { method: 'POST', body: formData });
             const result = await response.json();
-
             if (result.success) {
-                notification.textContent = '✅ ' + result.message;
-                notification.style.background = '#28a745';
+                notification.textContent = '✅ ' + result.message; notification.style.background = '#28a745';
                 setTimeout(() => notification.style.display = 'none', 5000);
-                this.reset();
-                selectedFiles = [];
-                document.getElementById('file-list').innerHTML = '';
-                document.getElementById('file-upload-area').classList.remove('success');
-            } else {
-                throw new Error(result.message || 'Ошибка сервера');
-            }
+                this.reset(); selectedFiles = []; document.getElementById('file-list').innerHTML = ''; document.getElementById('file-upload-area').classList.remove('success');
+            } else { throw new Error(result.message || 'Ошибка сервера'); }
         } catch (err) {
-            notification.textContent = '❌ ' + (err.message || 'Ошибка отправки. Попробуйте позже или свяжитесь по телефону.');
-            notification.style.background = '#dc3545';
+            notification.textContent = '❌ ' + (err.message || 'Ошибка отправки. Попробуйте позже или свяжитесь по телефону.'); notification.style.background = '#dc3545';
             setTimeout(() => notification.style.display = 'none', 8000);
         }
     });
-
+    
     const servicesContent = document.getElementById('servicesContent');
     const toggleBtn = document.getElementById('toggleServicesBtn');
     if (servicesContent && toggleBtn) {
         servicesContent.classList.remove('show');
-        toggleBtn.addEventListener('click', () => {
-            servicesContent.classList.toggle('show');
-            toggleBtn.textContent = servicesContent.classList.contains('show') ? 'Скрыть услуги' : 'Показать услуги';
-        });
+        toggleBtn.addEventListener('click', () => { servicesContent.classList.toggle('show'); toggleBtn.textContent = servicesContent.classList.contains('show') ? 'Скрыть услуги' : 'Показать услуги'; });
     }
-
+    
     function toggleMobileMenu() { document.getElementById('nav-links').classList.toggle('show'); }
+    
     function printOrderDetails() {
-        let material = document.getElementById('summary-material').innerText;
-        let thickness = document.getElementById('summary-thickness').innerText;
         let total = document.getElementById('full-total').innerText;
         let positionsHtml = '';
         let positionCards = document.querySelectorAll('#full-positions .full-position-card');
         positionCards.forEach((card, index) => {
+            let material = card.querySelector('select[id^="full-material-"]').options[card.querySelector('select[id^="full-material-"]').selectedIndex]?.text || '';
             let type = card.querySelector('select[id^="full-type-"]').options[card.querySelector('select[id^="full-type-"]').selectedIndex]?.text || '';
             let format = card.querySelector('select[id^="full-format-"]').options[card.querySelector('select[id^="full-format-"]').selectedIndex]?.text || '';
+            let thickness = card.querySelector('select[id^="full-thick-"]').value;
             let qty = card.querySelector('input[id^="full-qty-"]').value;
             let price = card.querySelector('.position-total').innerText;
-            positionsHtml += `<tr><td>${index+1}</td><td>${type}</td><td>${format}</td><td>${qty}</td><td>${price}</td></tr>`;
+            positionsHtml += `<tr><td>${index+1}</td><td>${material}</td><td>${type}</td><td>${format}</td><td>${thickness} мм</td><td>${qty}</td><td>${price}</td></tr>`;
         });
         let printWindow = window.open('', '_blank', 'width=800,height=600');
-        printWindow.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head><title>Детали заказа - КафельГранит124</title><meta charset="UTF-8">
-            <style>
-                body { font-family: 'Segoe UI', Arial, sans-serif; margin: 2rem; }
-                h1 { color: #5A6268; border-bottom: 2px solid #5A6268; }
-                table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
-                th, td { border: 1px solid #ddd; padding: 0.8rem; text-align: left; }
-                th { background: #5A6268; color: white; }
-                .total { font-size: 1.4rem; font-weight: bold; text-align: right; }
-            </style>
-            </head>
-            <body>
-            <h1>Детали заказа</h1>
-            <p><strong>Материал:</strong> ${material}</p>
-            <p><strong>Толщина:</strong> ${thickness}</p>
-            <h3>Позиции</h3>
-            <table><thead><tr><th>№</th><th>Вид резки</th><th>Формат</th><th>Количество</th><th>Сумма</th></tr></thead><tbody>${positionsHtml}</tbody></table>
-            <div class="total">ОБЩАЯ СУММА: ${total}</div>
-            <div class="footer">КафельГранит124 | Тел: +7 (902) 978-63-02</div>
-            <script>window.onload = function() { window.print(); setTimeout(window.close, 500); }<\/script>
-            </body></html>
-        `);
+        printWindow.document.write(`<!DOCTYPE html><html><head><title>Детали заказа - КафельГранит124</title><meta charset="UTF-8"><style>body{font-family:'Segoe UI',Arial,sans-serif;margin:2rem;}h1{color:#5A6268;border-bottom:2px solid #5A6268;}table{width:100%;border-collapse:collapse;margin:1.5rem 0;}th,td{border:1px solid #ddd;padding:0.6rem;text-align:left;}th{background:#5A6268;color:white;}.total{font-size:1.4rem;font-weight:bold;text-align:right;}</style></head><body><h1>Детали заказа</h1><h3>Позиции</h3><table><thead><tr><th>№</th><th>Материал</th><th>Вид резки</th><th>Формат</th><th>Толщина</th><th>Количество</th><th>Сумма</th></tr></thead><tbody>${positionsHtml}</tbody></table><div class="total">ОБЩАЯ СУММА: ${total}</div><div class="footer">КафельГранит124 | Тел: +7 (902) 978-63-02</div><script>window.onload = function() { window.print(); setTimeout(window.close, 500); }<\/script></body></html>`);
         printWindow.document.close();
     }
-
+    
     document.addEventListener('DOMContentLoaded', () => {
-        addQuickPosition(); 
-        addFullPosition(); 
+        addFullPosition();
         updateOrderForm();
         togglePickupAddress();
-        document.getElementById('quick-material').addEventListener('change', calculateQuick);
-        document.getElementById('quick-thickness').addEventListener('input', calculateQuick);
-        document.getElementById('full-thickness').addEventListener('input', function(){ currentThickness=parseInt(this.value)||6; calculateFull(); updateOrderForm(); });
     });
 </script>
 </body>
