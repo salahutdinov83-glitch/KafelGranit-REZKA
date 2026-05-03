@@ -801,7 +801,7 @@
                 <div><div class="field-label">Вид резки</div><select id="full-type-${id}" onchange="calculateFull();updateOrderForm()">${Object.keys(cutTypes).map(k=>`<option value="${k}">${cutTypes[k]}</option>`).join('')}</select></div>
                 <div><div class="field-label">Формат</div><select id="full-format-${id}" onchange="calculateFull();updateOrderForm()"><option value="1200">до 1200 мм</option><option value="1600">до 1600 мм</option><option value="3000">до 3000 мм</option><option value="3200">до 3200 мм</option></select></div>
                 <div><div class="field-label">Толщина, мм</div>${getThicknessSelectHtml(`full-thick-${id}`, defaultMaterial, defaultThick)}</div>
-                <div><div class="field-label">Кол-во (м.пог. или шт)</div><input type="number" id="full-qty-${id}" value="1" min="0.1" step="0.1" oninput="calculateFull();updateOrderForm()"></div>
+                <div><div class="field-label">Кол-во (метр.пог.)</div><input type="number" id="full-qty-${id}" value="1" min="0.1" step="0.1" oninput="calculateFull();updateOrderForm()"></div>
                 <div><div class="field-label">Сумма</div><div class="position-total" id="full-price-${id}">0 ₽</div></div>
             </div>
         `;
